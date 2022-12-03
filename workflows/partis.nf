@@ -50,7 +50,7 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 //
 include { PARTIS_ANNOTATE                    } from '../modules/local/annotate/main'
 include { PARTIS_PARSEOUTPUT                 } from '../modules/local/parseoutput/main'
-
+include { PARTIS_PARTITION                   } from '../modules/local/partition/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -72,6 +72,8 @@ workflow PARTIS {
     PARTIS_PARSEOUTPUT (
         PARTIS_ANNOTATE.out.yaml
     )
-
+    PARTIS_PARTITION (
+        input_channel
+    )
 
 }
