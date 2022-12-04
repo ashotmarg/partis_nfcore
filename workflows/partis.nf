@@ -62,13 +62,18 @@ def multiqc_report = []
 
 input_channel = Channel.fromPath(params.input)
     .splitCsv(header:true)
-    .map { row-> tuple(tuple(id:row.sample,type:"fasta file"), file(row.fasta)) }
+    .map { row-> tuple(id:row.sample, type:"fasta file", file(row.fasta)) }
 
 workflow PARTIS {
+
+    input_channel.view()
 
     PARTIS_ANNOTATE (
         input_channel
     )
+
+    PARTIS_ANNOTATE.out.yaml.view()
+
     PARTIS_PARSEOUTPUT (
         PARTIS_ANNOTATE.out.yaml
     )
